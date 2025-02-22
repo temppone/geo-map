@@ -1,0 +1,2 @@
+export const NEIGHBORHOODS = "NEIGHBORHOODS";
+export const POPULATIONS = "POPULATIONS";
