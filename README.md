@@ -1,4 +1,4 @@
-# Projeto de visualização da evolução Populacional
+# Projeto de visualização da evolução populacional
 
 ## Visão geral
 
