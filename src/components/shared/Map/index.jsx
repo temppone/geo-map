@@ -59,6 +59,7 @@ const Map = ({
         </Center>
       ) : (
         <MapContainer
+          data-testid="map-container"
           style={{ height: "100%" }}
           bounds={mapBounds}
           zoom={15}

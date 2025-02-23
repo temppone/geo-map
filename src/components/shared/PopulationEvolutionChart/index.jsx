@@ -45,64 +45,58 @@ export const PopulationEvolutionChart = ({ data }) => {
           </IconButton>
         </TooltipChakra>
       </Box>
-      <ResponsiveContainer width={300} height={200}>
-        {type === "line" ? (
-          <LineChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-            <XAxis
-              dataKey="ano"
-              label={{
-                value: t("home:years"),
-                position: "insideBottomRight",
-                offset: -5,
-                fill: "#666",
-              }}
-              tick={{ fill: "#666" }}
-            />
-            <YAxis
-              tickFormatter={(value) => value.toLocaleString()}
-              tick={{ fill: "#666" }}
-              domain={["auto", "dataMax + 100"]}
-            />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="populacao"
-              stroke="#38A169"
-              name={t("home:population")}
-              dot={{ r: 4 }}
-              activeDot={{ r: 6 }}
-            />
-          </LineChart>
-        ) : (
-          <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-            <XAxis
-              dataKey="ano"
-              label={{
-                value: t("home:years"),
-                position: "insideBottomRight",
-                offset: -5,
-                fill: "#666",
-              }}
-              tick={{ fill: "#666" }}
-            />
-            <YAxis
-              tickFormatter={(value) => value.toLocaleString()}
-              tick={{ fill: "#666" }}
-              domain={["auto", "dataMax + 1000"]}
-            />
-            <Tooltip />
-            <Legend />
-            <Bar
-              dataKey="populacao"
-              fill="#38A169"
-              name={t("home:population")}
-            />
-          </BarChart>
-        )}
-      </ResponsiveContainer>
+      {type === "line" ? (
+        <LineChart width={300} height={200} data={data}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+          <XAxis
+            dataKey="ano"
+            label={{
+              value: t("home:years"),
+              position: "insideBottomRight",
+              offset: -5,
+              fill: "#666",
+            }}
+            tick={{ fill: "#666" }}
+          />
+          <YAxis
+            tickFormatter={(value) => value.toLocaleString()}
+            tick={{ fill: "#666" }}
+            domain={["auto", "dataMax + 100"]}
+          />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="populacao"
+            stroke="#38A169"
+            name={t("home:population")}
+            dot={{ r: 4 }}
+            activeDot={{ r: 6 }}
+          />
+        </LineChart>
+      ) : (
+        <BarChart width={300} height={200} data={data}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+          <XAxis
+            dataKey="ano"
+            label={{
+              value: t("home:years"),
+              position: "insideBottomRight",
+              offset: -5,
+              fill: "#666",
+            }}
+            tick={{ fill: "#666" }}
+          />
+          <YAxis
+            tickFormatter={(value) => value.toLocaleString()}
+            tick={{ fill: "#666" }}
+            domain={["auto", "dataMax + 1000"]}
+          />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="populacao" fill="#38A169" name={t("home:population")} />
+        </BarChart>
+      )}
     </Box>
   );
 };
