@@ -6,8 +6,10 @@ import { defineConfig } from "vite";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    host: true,
+  },
   plugins: [react()],
   resolve: {
     "@": path.resolve(dirname(fileURLToPath(import.meta.url)), "./src"),

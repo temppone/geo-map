@@ -9,9 +9,8 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "en",
-    debug: true,
     interpolation: {
-      escapeValue: false, // React already does escaping
+      escapeValue: false,
     },
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",

@@ -18,7 +18,7 @@ import { Tooltip as TooltipChakra } from "@/components/ui/tooltip";
 import { Box, IconButton } from "@chakra-ui/react";
 import { ChartColumn, ChartLine } from "lucide-react";
 
-export const PopulationChart = ({ data }) => {
+export const PopulationEvolutionChart = ({ data }) => {
   const { t } = useTranslation(["home"]);
   const [type, setType] = useState("line");
 
@@ -107,7 +107,7 @@ export const PopulationChart = ({ data }) => {
   );
 };
 
-PopulationChart.propTypes = {
+PopulationEvolutionChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       ano: PropTypes.string.isRequired,

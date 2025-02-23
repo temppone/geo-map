@@ -1,4 +1,4 @@
-import { getNeighborhoods } from "@/api/getNeighborhoods";
+import { getNeighborhoods } from "@/services/api/getNeighborhoods";
 import { NEIGHBORHOODS } from "@/constants/queryKeys";
 import { useQuery } from "@tanstack/react-query";
 
