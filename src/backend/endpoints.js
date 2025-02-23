@@ -3,12 +3,10 @@ import populacao from "./populacao.json";
 import bairros from "./bairros-geojson.json";
 
 export const endpoints = [
-  http.get("/bairros-geojson", async () => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+  http.get("/bairros-geojson", () => {
     return HttpResponse.json(bairros);
   }),
-  http.get("/populacao", async () => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+  http.get("/populacao", () => {
     return HttpResponse.json(populacao);
   }),
 ];
