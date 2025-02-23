@@ -1,3 +1,4 @@
+import ErrorMessage from "@/components/shared/ErrorMessage";
 import { useNeighborhoods } from "@/services/hooks/useNeighborhoods";
 import { usePopulations } from "@/services/hooks/usePopulations";
 import { Flex } from "@chakra-ui/react";
@@ -12,11 +13,17 @@ const Home = () => {
   const [populationByNeighborhood, setPopulationByNeighborhood] = useState([]);
   const layerRefs = useRef({});
 
-  const { data: populationsData, isPending: isLoadingPopulations } =
-    usePopulations();
+  const {
+    data: populationsData,
+    isPending: isLoadingPopulations,
+    error: populationsError,
+  } = usePopulations();
 
-  const { data: neighborhoodsData, isPending: isLoadingNeighborhoods } =
-    useNeighborhoods();
+  const {
+    data: neighborhoodsData,
+    isPending: isLoadingNeighborhoods,
+    error: neighborhoodsError,
+  } = useNeighborhoods();
 
   const handleClickNeighborhood = (layer, neighborhoodId) => {
     const center = layer.getBounds().getCenter();
@@ -53,11 +60,9 @@ const Home = () => {
     }
   }, [popupCenter]);
 
-  console.log(popupCenter, "popupCenter");
-
   useEffect(() => {
     if (populationsData && neighborhoodsData) {
-      const combined = neighborhoodsData.features.map((neighborhood) => {
+      const combined = neighborhoodsData?.features?.map((neighborhood) => {
         const population = populationsData.filter(
           (populationItem) =>
             populationItem.id_geometria === neighborhood.properties.id
@@ -102,6 +107,14 @@ const Home = () => {
     (loading) => loading
   );
 
+  if (neighborhoodsError || populationsError) {
+    return (
+      <ErrorMessage
+        description={populationsError?.message || neighborhoodsError?.message}
+      />
+    );
+  }
+
   return (
     <Flex direction="row" height="100vh" width="100vw" overflow="hidden">
       <SideBar
@@ -115,7 +128,7 @@ const Home = () => {
 
       <Map
         isLoading={isLoading}
-        neighborhoodsData={neighborhoodsData?.features || []}
+        neighborhoodsData={neighborhoodsData?.features ?? []}
         onEachNeighborhood={onEachNeighborhood}
         highlightedNeighborhood={highlightedNeighborhood}
         popupCenter={popupCenter}

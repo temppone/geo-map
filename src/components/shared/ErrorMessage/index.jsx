@@ -1,10 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Box,
-} from "@chakra-ui/react";
+import { Alert, Box } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 
@@ -12,16 +6,16 @@ const ErrorMessage = ({ title, description }) => {
   const { t } = useTranslation(["common"]);
 
   return (
-    <Box w="100%">
-      <Alert status="error" borderRadius="md" variant="solid">
-        <AlertIcon />
-        <Box>
-          <AlertTitle>{title || t("common:error")}</AlertTitle>
-          <AlertDescription>
-            {description || t("common:errorMessage")}
-          </AlertDescription>
-        </Box>
-      </Alert>
+    <Box w="100%" justifyContent="center" alignItems="center">
+      <Alert.Root status="error">
+        <Alert.Indicator />
+        <Alert.Content>
+          <Alert.Title>{title || t("common:error")}</Alert.Title>
+          <Alert.Description>
+            {description || t("common:errorMessage")}{" "}
+          </Alert.Description>
+        </Alert.Content>
+      </Alert.Root>
     </Box>
   );
 };

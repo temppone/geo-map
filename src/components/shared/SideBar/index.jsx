@@ -29,10 +29,15 @@ const SideBar = ({
           height={{ base: "40vh", md: "100%" }}
           width={{ base: "100%", md: "230px" }}
         >
-          <Spinner size="xl" color="green.500" thickness="4px" />
+          <Spinner
+            size="xl"
+            color="green.500"
+            thickness="4px"
+            data-testid="chakra-spinner"
+          />
         </Center>
       ) : (
-        populationByNeighborhoodData.length > 0 &&
+        populationByNeighborhoodData?.length > 0 &&
         populationByNeighborhoodData.map((item) => (
           <NeighborhoodCard
             key={item.id}

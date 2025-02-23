@@ -9,7 +9,12 @@ function App() {
     <Suspense
       fallback={
         <Center h="100vh">
-          <Spinner size="xl" color="green.500" thickness="4px" />
+          <Spinner
+            size="xl"
+            color="green.500"
+            thickness="4px"
+            data-testid="chakra-spinner"
+          />
         </Center>
       }
     >

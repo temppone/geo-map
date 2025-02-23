@@ -50,7 +50,12 @@ const Map = ({
     >
       {isLoading ? (
         <Center h="100%" width="100%">
-          <Spinner size="xl" color="green.500" thickness="4px" />
+          <Spinner
+            size="xl"
+            color="green.500"
+            thickness="4px"
+            data-testid="chakra-spinner"
+          />
         </Center>
       ) : (
         <MapContainer
