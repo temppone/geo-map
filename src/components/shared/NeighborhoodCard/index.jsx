@@ -15,8 +15,7 @@ const NeighborhoodCard = ({
       _hover={{
         borderColor: "green.500",
       }}
-      borderColor={isHighlighted ? "green.500" : "gray.300"}
-      backgroundColor={isHighlighted ? "gray.50" : "gray.100"}
+      borderColor={isHighlighted ? "green.500" : ""}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
@@ -57,6 +56,7 @@ NeighborhoodCard.propTypes = {
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   onClick: PropTypes.func,
+  setDrawerOpen: PropTypes.func,
 };
 
 export default NeighborhoodCard;

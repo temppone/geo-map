@@ -28,6 +28,8 @@ const mockNeighborhoodData = [
 ];
 
 const mockProps = {
+  isDrawerOpen: false,
+  setDrawerOpen: vi.fn(),
   isLoading: false,
   populationByNeighborhoodData: mockNeighborhoodData,
   highlightedNeighborhood: null,
@@ -37,35 +39,40 @@ const mockProps = {
 };
 
 describe("SideBar", () => {
-  it("Should render loading spinner when isLoading is true", () => {
-    render(<SideBar {...mockProps} isLoading={true} />);
+  it("Should render toggle button", () => {
+    render(<SideBar {...mockProps} />);
+    expect(screen.getByLabelText("Toggle menu")).toBeInTheDocument();
+  });
+
+  it("Should toggle sidebar visibility", () => {
+    render(<SideBar {...mockProps} />);
+    const toggleButton = screen.getByLabelText("Toggle menu");
+
+    fireEvent.click(toggleButton);
+    expect(mockProps.setDrawerOpen).toHaveBeenCalledWith(true);
+  });
+
+  it("Should show content when open", () => {
+    render(<SideBar {...mockProps} isDrawerOpen={true} />);
+    expect(screen.getByText("Test Neighborhood")).toBeInTheDocument();
+  });
+
+  it("Should show loading spinner when loading", () => {
+    render(<SideBar {...mockProps} isDrawerOpen={true} isLoading={true} />);
     expect(screen.getByTestId("chakra-spinner")).toBeInTheDocument();
   });
 
-  it("Should render neighborhood cards when data is provided", () => {
-    render(<SideBar {...mockProps} />);
-    expect(screen.getByText("Test Neighborhood")).toBeInTheDocument();
-    expect(screen.getByText("Test Neighborhood 2")).toBeInTheDocument();
-  });
+  it("Should handle neighborhood interactions", () => {
+    render(<SideBar {...mockProps} isDrawerOpen={true} />);
+    const card = screen.getByText("Test Neighborhood");
 
-  it("Should handle mouse enter event", () => {
-    render(<SideBar {...mockProps} />);
-    const neighborhoodCard = screen.getByText("Test Neighborhood");
-    fireEvent.mouseEnter(neighborhoodCard);
+    fireEvent.mouseEnter(card);
     expect(mockProps.onMouseEnter).toHaveBeenCalledWith(1);
-  });
 
-  it("Should handle mouse leave event", () => {
-    render(<SideBar {...mockProps} />);
-    const neighborhoodCard = screen.getByText("Test Neighborhood");
-    fireEvent.mouseLeave(neighborhoodCard);
+    fireEvent.mouseLeave(card);
     expect(mockProps.onMouseLeave).toHaveBeenCalledWith(1);
-  });
 
-  it("Should handle click event", () => {
-    render(<SideBar {...mockProps} />);
-    const neighborhoodCard = screen.getByText("Test Neighborhood");
-    fireEvent.click(neighborhoodCard);
+    fireEvent.click(card);
     expect(mockProps.onClick).toHaveBeenCalledWith(1);
   });
 });

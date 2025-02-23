@@ -10,6 +10,7 @@ import SideBar from "../../components/shared/SideBar";
 const Home = () => {
   const [highlightedNeighborhood, setHighlightedNeighborhood] = useState(null);
   const [popupCenter, setPopupCenter] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [populationByNeighborhood, setPopulationByNeighborhood] = useState([]);
   const layerRefs = useRef({});
 
@@ -17,17 +18,15 @@ const Home = () => {
     data: populationsData,
     isPending: isLoadingPopulations,
     error: populationsError,
-  } = usePopulations();
+  } = usePopulations({
+    enabled: drawerOpen || !!highlightedNeighborhood,
+  });
 
   const {
     data: neighborhoodsData,
     isPending: isLoadingNeighborhoods,
     error: neighborhoodsError,
   } = useNeighborhoods();
-
-  useEffect(() => {
-    console.log(populationsData, neighborhoodsData);
-  }, [populationsData, neighborhoodsData]);
 
   const handleClickNeighborhood = (layer, neighborhoodId) => {
     const center = layer.getBounds().getCenter();
@@ -107,10 +106,6 @@ const Home = () => {
     }
   };
 
-  const isLoading = [isLoadingPopulations, isLoadingNeighborhoods].some(
-    (loading) => loading
-  );
-
   if (neighborhoodsError || populationsError) {
     return (
       <ErrorMessage
@@ -123,16 +118,19 @@ const Home = () => {
     <Flex direction="row" height="100vh" width="100vw" overflow="hidden">
       <SideBar
         highlightedNeighborhood={highlightedNeighborhood}
-        isLoading={isLoading}
+        isLoading={isLoadingPopulations}
         onClick={handleCardClick}
         onMouseEnter={handleCardMouseEnter}
         onMouseLeave={handleCardMouseLeave}
         populationByNeighborhoodData={populationByNeighborhood}
+        setDrawerOpen={setDrawerOpen}
+        isDrawerOpen={drawerOpen}
       />
 
       <Map
         data-testid="map"
-        isLoading={isLoading}
+        isLoadingNeighborhoods={isLoadingNeighborhoods}
+        isLoadingPopulations={isLoadingPopulations}
         neighborhoodsData={neighborhoodsData?.features ?? []}
         onEachNeighborhood={onEachNeighborhood}
         highlightedNeighborhood={highlightedNeighborhood}
@@ -140,6 +138,7 @@ const Home = () => {
         setHighlightedNeighborhood={setHighlightedNeighborhood}
         setPopupCenter={setPopupCenter}
         populationByNeighborhood={populationByNeighborhood}
+        drawerIsOpen={drawerOpen}
       />
     </Flex>
   );

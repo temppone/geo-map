@@ -10,6 +10,9 @@ export default defineConfig({
   server: {
     host: true,
   },
+  coverage: {
+    provider: "istanbul",
+  },
   plugins: [react()],
   resolve: {
     "@": path.resolve(dirname(fileURLToPath(import.meta.url)), "./src"),

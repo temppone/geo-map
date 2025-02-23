@@ -13,6 +13,7 @@ vi.mock("react-leaflet", () => ({
     <div data-testid="geojson-layer">{JSON.stringify(data)}</div>
   ),
   Popup: ({ children }) => <div data-testid="popup">{children}</div>,
+  ZoomControl: () => <div data-testid="zoom-control" />,
 }));
 
 const mockProps = {
@@ -41,11 +42,6 @@ const mockProps = {
 };
 
 describe("Map", () => {
-  it("Should render loading state", () => {
-    render(<Map {...mockProps} isLoading={true} />);
-    expect(screen.getByTestId("chakra-spinner")).toBeInTheDocument();
-  });
-
   it("Should render map when not loading", () => {
     render(<Map {...mockProps} />);
     expect(screen.getByTestId("map-container")).toBeInTheDocument();
