@@ -1,10 +1,10 @@
-# Projeto de Visualização da Evolução Populacional
+# Projeto de visualização da evolução Populacional
 
-## Visão Geral
+## Visão geral
 
 Aplicação frontend desenvolvida para visualizar a evolução populacional entre diferentes bairros de uma cidade. Este projeto demonstra habilidades de desenvolvimento React com ferramentas e práticas modernas.
 
-## Stack Técnica
+## Stack técnica
 
 - React 18
   - Hooks personalizados para gerenciamento de estado
@@ -74,7 +74,7 @@ Testes escritos usando Vitest e React Testing Library
 npm run test
 ```
 
-## Scripts Disponíveis
+## Scripts disponíveis
 
 ```bash
 # Desenvolvimento
@@ -89,7 +89,7 @@ npm run lint       # Executa ESLint
 npm run test       # Executa testes
 ```
 
-## Estrutura do Projeto
+## Estrutura do projeto
 
 ```
 src/
