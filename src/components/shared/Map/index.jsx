@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import { GeoJSON, MapContainer, Popup, TileLayer } from "react-leaflet";
 
 const Map = ({
+  neighborhoodsData = [],
   isLoading,
-  neighborhoodsData,
   onEachNeighborhood,
   highlightedNeighborhood,
   popupCenter,
@@ -35,14 +35,6 @@ const Map = ({
     populationByNeighborhood.find((item) => item.id === highlightedNeighborhood)
       ?.population;
 
-  if (isLoading) {
-    return (
-      <Center h="100%" bg="gray.500">
-        <Spinner size="xl" color="green.500" thickness="4px" />
-      </Center>
-    );
-  }
-
   return (
     <Box
       flex={{
@@ -56,29 +48,40 @@ const Map = ({
       right={0}
       marginTop={{ base: 0, md: "auto" }}
     >
-      <MapContainer
-        style={{ height: "100%" }}
-        bounds={mapBounds}
-        zoom={15}
-        whenCreated={onMapCreate}
-      >
-        <TileLayer
-          url={tileLayerUrl}
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
+      {isLoading ? (
+        <Center h="100%" width="100%">
+          <Spinner size="xl" color="green.500" thickness="4px" />
+        </Center>
+      ) : (
+        <MapContainer
+          style={{ height: "100%" }}
+          bounds={mapBounds}
+          zoom={15}
+          whenCreated={onMapCreate}
+        >
+          <TileLayer
+            url={tileLayerUrl}
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
 
-        <GeoJSON
-          data={neighborhoodsData}
-          onEachFeature={onEachNeighborhood}
-          style={{ color: "#435e55" }}
-        />
+          {neighborhoodsData.length > 0 && (
+            <GeoJSON
+              data={{
+                type: "FeatureCollection",
+                features: neighborhoodsData,
+              }}
+              onEachFeature={onEachNeighborhood}
+              style={{ color: "#435e55" }}
+            />
+          )}
 
-        {highlightedNeighborhood && popupCenter && (
-          <Popup position={popupCenter} onClose={handlePopupClose}>
-            <PopulationEvolutionChart data={getPopulationData()} />
-          </Popup>
-        )}
-      </MapContainer>
+          {highlightedNeighborhood && popupCenter && (
+            <Popup position={popupCenter} onClose={handlePopupClose}>
+              <PopulationEvolutionChart data={getPopulationData()} />
+            </Popup>
+          )}
+        </MapContainer>
+      )}
     </Box>
   );
 };

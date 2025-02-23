@@ -113,18 +113,16 @@ const Home = () => {
         populationByNeighborhoodData={populationByNeighborhood}
       />
 
-      {neighborhoodsData && populationByNeighborhood && (
-        <Map
-          isLoading={isLoading}
-          neighborhoodsData={neighborhoodsData.features}
-          onEachNeighborhood={onEachNeighborhood}
-          highlightedNeighborhood={highlightedNeighborhood}
-          popupCenter={popupCenter}
-          setHighlightedNeighborhood={setHighlightedNeighborhood}
-          setPopupCenter={setPopupCenter}
-          populationByNeighborhood={populationByNeighborhood}
-        />
-      )}
+      <Map
+        isLoading={isLoading}
+        neighborhoodsData={neighborhoodsData?.features || []}
+        onEachNeighborhood={onEachNeighborhood}
+        highlightedNeighborhood={highlightedNeighborhood}
+        popupCenter={popupCenter}
+        setHighlightedNeighborhood={setHighlightedNeighborhood}
+        setPopupCenter={setPopupCenter}
+        populationByNeighborhood={populationByNeighborhood}
+      />
     </Flex>
   );
 };

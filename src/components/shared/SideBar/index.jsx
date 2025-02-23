@@ -1,4 +1,4 @@
-import { Box, Center, Spinner, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Center, Spinner } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import NeighborhoodCard from "../NeighborhoodCard";
 
@@ -10,17 +10,11 @@ const SideBar = ({
   onMouseLeave,
   onClick,
 }) => {
-  const sidebarWidth = useBreakpointValue({ base: "100%", md: "250px" });
-
-  return isLoading ? (
-    <Center h="100%" bg="gray.500">
-      <Spinner size="xl" color="green.500" thickness="4px" />
-    </Center>
-  ) : (
+  return (
     <Box
       bg="gray.100"
+      width={{ base: "100%", md: "250px" }}
       color="white"
-      width={sidebarWidth}
       height={{ base: "40vh", md: "100%" }}
       overflowY={{
         base: "auto",
@@ -30,7 +24,15 @@ const SideBar = ({
       padding="2"
       gap="2"
     >
-      {populationByNeighborhoodData.length > 0 &&
+      {isLoading ? (
+        <Center
+          height={{ base: "40vh", md: "100%" }}
+          width={{ base: "100%", md: "230px" }}
+        >
+          <Spinner size="xl" color="green.500" thickness="4px" />
+        </Center>
+      ) : (
+        populationByNeighborhoodData.length > 0 &&
         populationByNeighborhoodData.map((item) => (
           <NeighborhoodCard
             key={item.id}
@@ -41,7 +43,8 @@ const SideBar = ({
             onMouseLeave={() => onMouseLeave(item.id)}
             onClick={() => onClick(item.id)}
           />
-        ))}
+        ))
+      )}
     </Box>
   );
 };
