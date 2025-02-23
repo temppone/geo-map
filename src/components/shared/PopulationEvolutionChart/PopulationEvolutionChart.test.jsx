@@ -5,9 +5,6 @@ import { render, screen } from "../../../tests/utils";
 import { PopulationEvolutionChart } from "./index";
 
 vi.mock("recharts", () => ({
-  ResponsiveContainer: ({ children }) => (
-    <div data-testid="responsive-container">{children}</div>
-  ),
   LineChart: ({ children }) => <div data-testid="line-chart">{children}</div>,
   Line: () => <div data-testid="line" />,
   XAxis: () => <div data-testid="x-axis" />,
@@ -27,7 +24,6 @@ describe("PopulationEvolutionChart", () => {
   it("Should render chart with all components", () => {
     render(<PopulationEvolutionChart data={mockData} />);
 
-    expect(screen.getByTestId("responsive-container")).toBeInTheDocument();
     expect(screen.getByTestId("line-chart")).toBeInTheDocument();
     expect(screen.getByTestId("line")).toBeInTheDocument();
     expect(screen.getByTestId("x-axis")).toBeInTheDocument();
@@ -43,6 +39,6 @@ describe("PopulationEvolutionChart", () => {
 
   it("Should render chart even with empty data", () => {
     render(<PopulationEvolutionChart data={[]} />);
-    expect(screen.getByTestId("responsive-container")).toBeInTheDocument();
+    expect(screen.getByTestId("line-chart")).toBeInTheDocument();
   });
 });

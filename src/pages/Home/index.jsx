@@ -25,6 +25,10 @@ const Home = () => {
     error: neighborhoodsError,
   } = useNeighborhoods();
 
+  useEffect(() => {
+    console.log(populationsData, neighborhoodsData);
+  }, [populationsData, neighborhoodsData]);
+
   const handleClickNeighborhood = (layer, neighborhoodId) => {
     const center = layer.getBounds().getCenter();
     setHighlightedNeighborhood(neighborhoodId);
@@ -127,6 +131,7 @@ const Home = () => {
       />
 
       <Map
+        data-testid="map"
         isLoading={isLoading}
         neighborhoodsData={neighborhoodsData?.features ?? []}
         onEachNeighborhood={onEachNeighborhood}
