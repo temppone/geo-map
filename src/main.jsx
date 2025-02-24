@@ -14,7 +14,17 @@ export const initAPIMock = async () => {
 
 const initApplication = async () => {
   await initAPIMock();
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        retry: false,
+        staleTime: Infinity,
+      },
+    },
+  });
 
   ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
