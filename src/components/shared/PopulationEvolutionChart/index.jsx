@@ -108,8 +108,8 @@ export const PopulationEvolutionChart = ({ data }) => {
 PopulationEvolutionChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      ano: PropTypes.string.isRequired,
-      populacao: PropTypes.number.isRequired,
+      ano: PropTypes.string,
+      populacao: PropTypes.number,
     })
-  ).isRequired,
+  ),
 };

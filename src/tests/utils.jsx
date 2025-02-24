@@ -1,10 +1,17 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Provider } from "@/components/ui/provider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render } from "@testing-library/react";
 import PropTypes from "prop-types";
 
 function AllProviders({ children }) {
-  return <Provider>{children}</Provider>;
+  const queryClient = new QueryClient();
+
+  return (
+    <Provider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </Provider>
+  );
 }
 
 AllProviders.propTypes = {

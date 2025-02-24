@@ -119,8 +119,8 @@ const Map = ({
 };
 
 Map.propTypes = {
-  isLoadingNeighborhoods: PropTypes.bool.isRequired,
-  isLoadingPopulations: PropTypes.bool.isRequired,
+  isLoadingNeighborhoods: PropTypes.bool,
+  isLoadingPopulations: PropTypes.bool,
   neighborhoodsData: PropTypes.array.isRequired,
   onEachNeighborhood: PropTypes.func.isRequired,
   highlightedNeighborhood: PropTypes.number,
