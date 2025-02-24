@@ -1,5 +1,7 @@
 import { PopulationEvolutionChart } from "@/components/shared/PopulationEvolutionChart";
+import { green800 } from "@/constants/colors";
 import { Box, Center, Spinner } from "@chakra-ui/react";
+
 import PropTypes from "prop-types";
 import {
   GeoJSON,
@@ -86,7 +88,7 @@ const Map = ({
                   features: neighborhoodsData,
                 }}
                 onEachFeature={onEachNeighborhood}
-                style={{ color: "#435e55" }}
+                style={{ color: green800 }}
               />
             )}
 

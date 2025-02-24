@@ -14,17 +14,18 @@ import {
 } from "recharts";
 
 import { Tooltip as TooltipChakra } from "@/components/ui/tooltip";
+import { gray50, gray500, green500 } from "@/constants/colors";
 import { Box, IconButton } from "@chakra-ui/react";
 import { ChartColumn, ChartLine } from "lucide-react";
 
 export const PopulationEvolutionChart = ({ data }) => {
-  const { t } = useTranslation(["home"]);
+  const { t } = useTranslation(["populationEvolutionChart"]);
   const [type, setType] = useState("line");
 
   return (
     <Box display="flex" flexDirection="column" gap={2}>
       <Box display="flex" flexDirection="row" gap={1}>
-        <TooltipChakra content={t("home:showLineChart")}>
+        <TooltipChakra content={t("populationEvolutionChart:showLineChart")}>
           <IconButton
             colorPalette="green"
             onClick={() => setType("line")}
@@ -34,7 +35,7 @@ export const PopulationEvolutionChart = ({ data }) => {
           </IconButton>
         </TooltipChakra>
 
-        <TooltipChakra content={t("home:showBarChart")}>
+        <TooltipChakra content={t("populationEvolutionChart:showBarChart")}>
           <IconButton
             colorPalette="green"
             onClick={() => setType("bar")}
@@ -46,20 +47,20 @@ export const PopulationEvolutionChart = ({ data }) => {
       </Box>
       {type === "line" ? (
         <LineChart width={300} height={200} data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+          <CartesianGrid strokeDasharray="3 3" stroke={gray50} />
           <XAxis
             dataKey="ano"
             label={{
-              value: t("home:years"),
+              value: t("populationEvolutionChart:years"),
               position: "insideBottomRight",
               offset: -5,
-              fill: "#666",
+              fill: gray500,
             }}
-            tick={{ fill: "#666" }}
+            tick={{ fill: gray500 }}
           />
           <YAxis
             tickFormatter={(value) => value.toLocaleString()}
-            tick={{ fill: "#666" }}
+            tick={{ fill: gray500 }}
             domain={["auto", "dataMax + 100"]}
           />
           <Tooltip />
@@ -67,33 +68,37 @@ export const PopulationEvolutionChart = ({ data }) => {
           <Line
             type="monotone"
             dataKey="populacao"
-            stroke="#38A169"
-            name={t("home:population")}
+            stroke={green500}
+            name={t("populationEvolutionChart:population")}
             dot={{ r: 4 }}
             activeDot={{ r: 6 }}
           />
         </LineChart>
       ) : (
         <BarChart width={300} height={200} data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+          <CartesianGrid strokeDasharray="3 3" stroke={gray50} />
           <XAxis
             dataKey="ano"
             label={{
-              value: t("home:years"),
+              value: t("populationEvolutionChart:years"),
               position: "insideBottomRight",
               offset: -5,
-              fill: "#666",
+              fill: gray500,
             }}
-            tick={{ fill: "#666" }}
+            tick={{ fill: gray500 }}
           />
           <YAxis
             tickFormatter={(value) => value.toLocaleString()}
-            tick={{ fill: "#666" }}
+            tick={{ fill: gray500 }}
             domain={["auto", "dataMax + 1000"]}
           />
           <Tooltip />
           <Legend />
-          <Bar dataKey="populacao" fill="#38A169" name={t("home:population")} />
+          <Bar
+            dataKey="populacao"
+            fill={green500}
+            name={t("populationEvolutionChart:population")}
+          />
         </BarChart>
       )}
     </Box>
