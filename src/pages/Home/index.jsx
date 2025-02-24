@@ -1,4 +1,5 @@
 import ErrorMessage from "@/components/shared/ErrorMessage";
+import { green500, green800 } from "@/constants/colors";
 import { useNeighborhoods } from "@/services/hooks/useNeighborhoods";
 import { usePopulations } from "@/services/hooks/usePopulations";
 import { Flex } from "@chakra-ui/react";
@@ -31,17 +32,17 @@ const Home = () => {
   const handleClickNeighborhood = (layer, neighborhoodId) => {
     const center = layer.getBounds().getCenter();
     setHighlightedNeighborhood(neighborhoodId);
-    layer.setStyle({ color: "#38A169" });
+    layer.setStyle({ color: green500 });
 
     setPopupCenter(center);
   };
 
   const handleMouseOverNeighborhood = (layer) => {
-    layer.setStyle({ color: "#38A169" });
+    layer.setStyle({ color: green500 });
   };
 
   const handleMouseOutNeighborhood = (layer) => {
-    layer.setStyle({ color: "#435e55" });
+    layer.setStyle({ color: green800 });
   };
 
   const onEachNeighborhood = (neighborhoodFeature, layer) => {
@@ -83,7 +84,7 @@ const Home = () => {
     const layer = layerRefs.current[id];
 
     if (layer) {
-      layer.setStyle({ color: "#38A169" });
+      layer.setStyle({ color: green500 });
     }
   };
 
@@ -91,7 +92,7 @@ const Home = () => {
     const layer = layerRefs.current[id];
 
     if (layer) {
-      layer.setStyle({ color: "#435e55" });
+      layer.setStyle({ color: green800 });
     }
   };
 
@@ -101,7 +102,7 @@ const Home = () => {
     if (layer) {
       const center = layer.getBounds().getCenter();
       setHighlightedNeighborhood(id);
-      layer.setStyle({ color: "#38A169" });
+      layer.setStyle({ color: green500 });
       setPopupCenter(center);
     }
   };
