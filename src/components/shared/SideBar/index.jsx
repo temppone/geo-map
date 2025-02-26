@@ -1,12 +1,19 @@
+import { SkeletonText } from "@/components/ui/skeleton";
+import { useNaturalLanguageData } from "@/services/hooks/useNaturalLanguageData";
+
 import {
   Box,
   Center,
+  HStack,
   IconButton,
+  Input,
   Spinner,
+  Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { MenuIcon, X } from "lucide-react";
+import { MenuIcon, Sparkles, X } from "lucide-react";
 import PropTypes from "prop-types";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import NeighborhoodCard from "../NeighborhoodCard";
 
@@ -22,6 +29,9 @@ const SideBar = ({
 }) => {
   const { t } = useTranslation(["common"]);
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const [question, setQuestion] = useState("");
+
+  const getNaturalLanguageData = useNaturalLanguageData();
 
   return (
     <>
@@ -62,7 +72,7 @@ const SideBar = ({
         overflow="hidden"
       >
         <Box
-          p={4}
+          p={2}
           display="flex"
           justifyContent="space-between"
           alignItems="center"
@@ -79,6 +89,44 @@ const SideBar = ({
           </IconButton>
         </Box>
 
+        <Box p={2}>
+          <HStack>
+            <Input
+              placeholder={t("common:ask")}
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+            />
+
+            <IconButton
+              colorScheme="green"
+              aria-label="Submit question"
+              colorPalette="green"
+              onClick={() => {
+                if (question) {
+                  getNaturalLanguageData.mutateAsync({
+                    populationEvolutionData: populationByNeighborhoodData,
+                    question,
+                  });
+                }
+              }}
+            >
+              <Sparkles />
+            </IconButton>
+          </HStack>
+        </Box>
+
+        {getNaturalLanguageData.isPending && (
+          <Box p={2}>
+            <SkeletonText noOfLines={3} gap="2" />
+          </Box>
+        )}
+
+        {getNaturalLanguageData.data && (
+          <Box p={2}>
+            <Text>{getNaturalLanguageData.data}</Text>
+          </Box>
+        )}
+
         <Box
           overflowY="auto"
           height="calc(100% - 60px)"
@@ -87,7 +135,7 @@ const SideBar = ({
             "-ms-overflow-style": "none",
             scrollbarWidth: "none",
           }}
-          p={4}
+          p={2}
         >
           {isLoading ? (
             <Center height="100%">
