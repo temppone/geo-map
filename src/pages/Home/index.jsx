@@ -76,6 +76,9 @@ const Home = () => {
           population,
         };
       });
+
+      console.log("combined", combined);
+
       setPopulationByNeighborhood(combined);
     }
   }, [populationsData, neighborhoodsData]);

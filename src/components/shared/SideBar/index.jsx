@@ -1,5 +1,6 @@
 import { SkeletonText } from "@/components/ui/skeleton";
 import { useNaturalLanguageData } from "@/services/hooks/useNaturalLanguageData";
+import ReactMarkdown from "react-markdown";
 
 import {
   Box,
@@ -66,7 +67,7 @@ const SideBar = ({
             : "translateX(-100%)"
         }
         transition={`transform 0.3s ease-in-out`}
-        width={{ base: "100%", md: "250px" }}
+        width={{ base: "100%", md: "300px" }}
         height={{ base: "40vh", md: "100vh" }}
         zIndex="overlay"
         overflow="hidden"
@@ -90,29 +91,36 @@ const SideBar = ({
         </Box>
 
         <Box p={2}>
-          <HStack>
-            <Input
-              placeholder={t("common:ask")}
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-            />
+          <form>
+            <HStack>
+              <Input
+                placeholder={t("common:ask")}
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                disabled={getNaturalLanguageData.isPending}
+              />
 
-            <IconButton
-              colorScheme="green"
-              aria-label="Submit question"
-              colorPalette="green"
-              onClick={() => {
-                if (question) {
-                  getNaturalLanguageData.mutateAsync({
-                    populationEvolutionData: populationByNeighborhoodData,
-                    question,
-                  });
-                }
-              }}
-            >
-              <Sparkles />
-            </IconButton>
-          </HStack>
+              <IconButton
+                colorScheme="green"
+                aria-label="Submit question"
+                colorPalette="green"
+                disabled={getNaturalLanguageData.isPending}
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  if (question) {
+                    getNaturalLanguageData.mutateAsync({
+                      populationEvolutionData: populationByNeighborhoodData,
+                      question,
+                    });
+                  }
+                }}
+              >
+                <Sparkles />
+              </IconButton>
+            </HStack>
+          </form>
         </Box>
 
         {getNaturalLanguageData.isPending && (
@@ -123,7 +131,9 @@ const SideBar = ({
 
         {getNaturalLanguageData.data && (
           <Box p={2}>
-            <Text>{getNaturalLanguageData.data}</Text>
+            <Text fontSize="0.9rem">
+              <ReactMarkdown>{getNaturalLanguageData.data}</ReactMarkdown>
+            </Text>
           </Box>
         )}
 
